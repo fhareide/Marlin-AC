@@ -74,7 +74,7 @@
 // User-specified version info of this build to display in [Pronterface, etc] terminal window during
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
-#define STRING_CONFIG_H_AUTHOR "(LVD, G-force9-AC)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(LVD, FLSUN-AC)" // Who made the changes.
 #define SHOW_BOOTSCREEN
 #define STRING_SPLASH_LINE1 SHORT_BUILD_VERSION // will be shown during bootup in line 1
 #define STRING_SPLASH_LINE2 WEBSITE_URL         // will be shown during bootup in line 2
@@ -129,7 +129,7 @@
 
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
-#define CUSTOM_MACHINE_NAME "LVD-AC Delta"
+#define CUSTOM_MACHINE_NAME "FLSUN DELTA"
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -308,7 +308,7 @@
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_4 0
-#define TEMP_SENSOR_BED 5
+#define TEMP_SENSOR_BED 1
 #define TEMP_SENSOR_CHAMBER 0
 
 // Dummy thermistor constant temperature readings, for use with 998 and 999
@@ -348,7 +348,7 @@
 #define HEATER_2_MAXTEMP 250
 #define HEATER_3_MAXTEMP 250
 #define HEATER_4_MAXTEMP 250
-#define BED_MAXTEMP 115
+#define BED_MAXTEMP 125
 
 //===========================================================================
 //============================= PID Settings ================================
@@ -388,14 +388,9 @@
   //#define DEFAULT_Kd 440
 
   //E3D with 30MM fan
-  //#define DEFAULT_Kp 24.77
-  //#define DEFAULT_Ki 1.84
-  //#define DEFAULT_Kd 83.61
-
-  //Flsun with new effector
-  #define DEFAULT_Kp 25.72
-  #define DEFAULT_Ki 2.01
-  #define DEFAULT_Kd 82.16
+   #define  DEFAULT_Kp 28.12
+   #define  DEFAULT_Ki 2.34
+   #define  DEFAULT_Kd 84.30
 
 #endif // PIDTEMP
 
@@ -416,9 +411,9 @@
  * heater. If your configuration is significantly different than this and you don't understand
  * the issues involved, don't use bed PID until someone else verifies that your hardware works.
  */
-#define PIDTEMPBED
+//#define PIDTEMPBED
 
-//#define BED_LIMIT_SWITCHING
+#define BED_LIMIT_SWITCHING
 
 /**
  * Max Bed Power
@@ -445,14 +440,9 @@
   //#define DEFAULT_bedKd 1675.16
 
   //D-force
-  //#define DEFAULT_bedKp 22.97
-  //#define DEFAULT_bedKi 3.76
-  //#define DEFAULT_bedKd 29.2
-
-  //Flsun with glass
-  #define DEFAULT_bedKp 405.81
-  #define DEFAULT_bedKi 63.51
-  #define DEFAULT_bedKd 648.23
+  #define DEFAULT_bedKp 22.97
+  #define DEFAULT_bedKi 3.76
+  #define DEFAULT_bedKd 29.2
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -522,13 +512,13 @@
   // Make delta curves from many straight lines (linear interpolation).
   // This is a trade-off between visible corners (not enough segments)
   // and processor overload (too many expensive sqrt calls).
-  #define DELTA_SEGMENTS_PER_SECOND 160
+  #define DELTA_SEGMENTS_PER_SECOND 120
 
   // Convert feedrates to apply to the Effector instead of the Carriages
   #define DELTA_FEEDRATE_SCALING
 
   // After homing move down to a height where XY movement is unconstrained
-  #define DELTA_HOME_TO_SAFE_ZONE
+  //#define DELTA_HOME_TO_SAFE_ZONE
 
   // Delta calibration menu
   // uncomment to add three points calibration menu option.
@@ -542,24 +532,25 @@
 
   #if ENABLED(DELTA_AUTO_CALIBRATION)
     // set the default number of probe points : n*n (1 -> 7)
-    #define DELTA_CALIBRATION_DEFAULT_POINTS 6
+    #define DELTA_CALIBRATION_DEFAULT_POINTS 4
   #endif
 
   #if ENABLED(DELTA_AUTO_CALIBRATION) || ENABLED(DELTA_CALIBRATION_MENU)
     // Set the radius for the calibration probe points - max DELTA_PRINTABLE_RADIUS for non-eccentric probes
-    #define DELTA_CALIBRATION_RADIUS 80.0 // mm
-    //Steprate for papertest probing
-    #define PROBE_MANUALLY_STEP (MIN_STEPS_PER_SEGMENT / DEFAULT_XYZ_STEPS_PER_UNIT)
+    #define DELTA_CALIBRATION_RADIUS 73.5 // mm
+    // Set the steprate for papertest probing
+    #define PROBE_MANUALLY_STEP 0.05 // mm
   #endif
 
   // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
-  #define DELTA_PRINTABLE_RADIUS 85.0 // mm
+  #define DELTA_PRINTABLE_RADIUS 75.0 // mm
 
   // Center-to-center distance of the holes in the diagonal push rods.
   #define DELTA_DIAGONAL_ROD 218.0 // mm
 
   // height from z=0 to home position
-  #define DELTA_HEIGHT 262.00 // get this value from auto calibrate
+  #define DELTA_HEIGHT 281.00 // get this value from auto calibrate
+
   #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // get these from auto calibrate
 
   // Horizontal distance bridged by diagonal push rods when effector is centered.
@@ -608,11 +599,11 @@
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 #define X_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Z_MIN_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
+#define Z_MIN_ENDSTOP_INVERTING false  // set to true to invert the logic of the endstop.
 #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING true  // set to true to invert the logic of the probe.
+#define Z_MIN_PROBE_ENDSTOP_INVERTING false  // set to true to invert the logic of the probe.
 
 /**
  * Specify Stepper Driver types
